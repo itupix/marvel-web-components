@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Loader from '../Loader';
 import Error from '../Error';
 import { fetchCollection } from '../services';
+import 'marvel-loader';
 
 const getSrc = ({ thumbnail }) => thumbnail ? `${thumbnail.path}/portrait_medium.${thumbnail.extension}` : "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_medium.jpg";
 
@@ -49,7 +49,7 @@ const Collection = ({ URI }) => {
             )}
           </>
         ),
-        loading: <Loader centered/>,
+        loading: <marvel-loader centered/>,
         error: <Error message="Impossible d'afficher les références de ce personnage à cause d'une erreur technique." />
       }[status]}
     </div>
