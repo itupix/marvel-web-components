@@ -51,11 +51,6 @@
     animation: fadeIn 0.7s;
   }
 
-  &__message {
-    margin-top: 2rem;
-    text-align: center;
-  }
-
   &[data-current='0'] .tab-content__item:nth-child(1) { display: block; }
   &[data-current='1'] .tab-content__item:nth-child(2) { display: block; }
   &[data-current='2'] .tab-content__item:nth-child(3) { display: block; }
@@ -66,25 +61,6 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 6.5rem);
-}
-
-.references-list {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    font-size: 0.6rem;
-
-    img {
-      width: 100px;
-      height: 150px;
-      margin-bottom: 0.5rem;
-    }
-  }
 }
 
 @keyframes fadeIn {

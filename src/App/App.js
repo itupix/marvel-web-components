@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Characters from '../Characters';
-import Error from '../Error';
 import CharacterDetails from '../CharacterDetails';
 import { fetchCharacters } from '../services';
 import { Query, Details, Total, Offset, useQuery, useDetails, useTotal, useOffset } from '../contexts';
 import 'marvel-header';
 import 'marvel-loader';
+import 'marvel-error';
 import './App.scss';
 
 const getCharacters = async ({ setStatus, setCharacters, query, offset, total }) => {
@@ -57,7 +57,7 @@ const App = () => {
             <main>
               {{
                 loading: <marvel-loader centered />,
-                error: <Error message="Impossible de d'afficher la liste des personnages à cause d'une erreur technique." />,
+                error: <marvel-error message="Impossible de d'afficher la liste des personnages à cause d'une erreur technique." />,
                 ok: <Characters characters={characters} />
               }[status]}
               <CharacterDetails/>

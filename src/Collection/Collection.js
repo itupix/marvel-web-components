@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Error from '../Error';
+import React, { useState, useEffect, useRef } from 'react';
 import { fetchCollection } from '../services';
 import 'marvel-loader';
+import 'marvel-error';
+import 'marvel-collection';
 
 const getSrc = ({ thumbnail }) => thumbnail ? `${thumbnail.path}/portrait_medium.${thumbnail.extension}` : "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_medium.jpg";
 
@@ -26,31 +27,20 @@ const Collection = ({ URI }) => {
   const [status, setStatus] = useState(null);
   const [collection, setCollection] = useState([]);
 
+  const collectionElement = useRef(null);
+
+  useEffect(() => collectionElement.current?.$set({ collection }), [status, collectionElement, collection]);
+
   useEffect(() => {
-    getCollection({ setStatus, setCollection, URI })
+    getCollection({ setStatus, setCollection, URI });
   }, [URI]);
 
   return (
     <div className="tab-content__item">
       {{
-        ok: (
-          <>
-            {collection && collection.length ? (
-              <ul className="references-list">
-                {collection.map(({ src, title }) => (
-                  <li key={title}>
-                    <img src={src} alt={title}/>
-                    {title}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="tab-content__message">Cette collection est vide.</p>
-            )}
-          </>
-        ),
+        ok: <marvel-collection ref={collectionElement} />,
         loading: <marvel-loader centered/>,
-        error: <Error message="Impossible d'afficher les références de ce personnage à cause d'une erreur technique." />
+        error: <marvel-error message="Impossible d'afficher les références de ce personnage à cause d'une erreur technique." />
       }[status]}
     </div>
   )
